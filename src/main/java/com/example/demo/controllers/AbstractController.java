@@ -13,8 +13,6 @@ import com.example.demo.services.CommonService;
 public abstract class AbstractController <E extends AbstractEntity, S extends CommonService<E>> implements CommonController<E>{
 	private final S service;
 	
-	@Autowired
-    ModelMapper modelMapper;
 	
     @Autowired
     protected AbstractController(S service){
