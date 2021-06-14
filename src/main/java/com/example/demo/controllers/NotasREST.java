@@ -12,7 +12,6 @@ public class NotasREST extends AbstractController<Notas, NotasService>{
 
 	protected NotasREST(NotasService service) {
 		super(service);
-		// TODO Auto-generated constructor stub
 	}
 
 }
