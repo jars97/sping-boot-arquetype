@@ -21,16 +21,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.dto.BancosDTO;
 import com.example.demo.dto.ErrorDTO;
-import com.example.demo.entity.Bancos;
-import com.example.demo.services.BancosService;
+import com.example.demo.dto.FacturasDTO;
+import com.example.demo.entity.Facturas;
+import com.example.demo.entity.Renglones;
+import com.example.demo.services.FacturasService;
 
 @RestController
-@RequestMapping(value ="/bancos" )
-public class BancosREST {
+@RequestMapping(value ="/facturas" )
+public class FacturasREST {
 	@Autowired 
-	BancosService service;
+	FacturasService service;
 	
 	@Autowired
     ModelMapper modelMapper;
@@ -43,14 +44,14 @@ public class BancosREST {
 
 
 
-        List<BancosDTO> listResponse = new ArrayList<>();
+        List<FacturasDTO> listResponse = new ArrayList<>();
         Pageable paging = PageRequest.of(page-1, records,Sort.by("id"));
-        Page<Bancos> mList = this.service.findAllPaginated(paging);
+        Page<Facturas> mList = this.service.findAllPaginated(paging);
         		
-        List<Bancos> listR = mList.getContent();
+        List<Facturas> listR = mList.getContent();
         if (!listR.isEmpty()) {
-            for (Bancos item:listR) {
-                BancosDTO dto = modelMapper.map(item,BancosDTO.class);
+            for (Facturas item:listR) {
+            	FacturasDTO dto = modelMapper.map(item,FacturasDTO.class);
                 listResponse.add(dto);
             }
         }
@@ -65,15 +66,12 @@ public class BancosREST {
 	@GetMapping(value = "/",
             produces = "application/json")
     public ResponseEntity<Object> findAll() {
-
-
-
-        List<BancosDTO> listResponse = new ArrayList<>();
-        List<Bancos> mList = this.service.findAll();
+        List<FacturasDTO> listResponse = new ArrayList<>();
+        List<Facturas> mList = this.service.findAll();
         		
         if (!mList.isEmpty()) {
-            for (Bancos item:mList) {
-                BancosDTO dto = modelMapper.map(item,BancosDTO.class);
+            for (Facturas item:mList) {
+            	FacturasDTO dto = modelMapper.map(item,FacturasDTO.class);
                 listResponse.add(dto);
             }
         }
@@ -84,21 +82,25 @@ public class BancosREST {
             produces = "application/json")
     public ResponseEntity<Object> find(
             @PathVariable("id") Long id) {
-		Optional<Bancos> response = this.service.findById(id);
-		BancosDTO dto = new BancosDTO();
+		Optional<Facturas> response = this.service.findById(id);
+		FacturasDTO dto = new FacturasDTO();
         if (response.isPresent()){
-            dto=modelMapper.map(response.get(),BancosDTO.class);
+            dto=modelMapper.map(response.get(),FacturasDTO.class);
         }
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
 	@PostMapping(value = "/", produces = "application/json",consumes = "application/json")
     public ResponseEntity<Object> add(
-            @RequestBody BancosDTO body) {
+            @RequestBody FacturasDTO body) {
         try {
-            Bancos item = modelMapper.map(body,Bancos.class);
-            Bancos response=this.service.save(item);
-            BancosDTO dto = modelMapper.map(response,BancosDTO.class);
+        	Facturas factura = modelMapper.map(body,Facturas.class);
+        	List<Renglones> mRrenglones = factura.getRenglones();
+            for (Renglones item:mRrenglones) {
+                item.setFactura(factura);
+            }
+        	Facturas response=this.service.save(factura);
+            FacturasDTO dto = modelMapper.map(response,FacturasDTO.class);
             return new ResponseEntity<>(dto,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ErrorDTO(e.getLocalizedMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -108,15 +110,21 @@ public class BancosREST {
 	@PutMapping(value = "/{id}", produces = "application/json",consumes = "application/json")
     public ResponseEntity<Object> updateMotors(
             @PathVariable("id") Long id,
-            @RequestBody BancosDTO body) {
+            @RequestBody FacturasDTO body) {
        
 		 try {
-	            Optional<Bancos> item = this.service.findById(id);
+	            Optional<Facturas> item = this.service.findById(id);
 	            if (item.isPresent()){
-	            	Bancos banco = modelMapper.map(body,Bancos.class);
-	            	banco.setId(id);
-	            	Bancos response=this.service.save(banco);
-	            	BancosDTO dto = modelMapper.map(response,BancosDTO.class);
+	            	Facturas factura = item.get();
+	            	factura.getRenglones().clear();
+	            	factura.getRenglones().addAll(body.getRenglones());
+	            	factura.setCliente(body.getCliente());
+	            	List<Renglones> mRrenglones = factura.getRenglones();
+	                for (Renglones renglon:mRrenglones) {
+	                	renglon.setFactura(factura);
+	                }
+	            	Facturas response=this.service.save(factura);
+	            	FacturasDTO dto = modelMapper.map(response,FacturasDTO.class);
 	                return new ResponseEntity<>(dto,HttpStatus.OK);
 	            }else{
 	            	return new ResponseEntity<>(new ErrorDTO(Messages.NO_RECORD_FOUND), HttpStatus.BAD_REQUEST);
