@@ -31,7 +31,7 @@ public abstract class AbstractController <E extends AbstractEntity, S extends Co
 		if (response.isPresent()) {
 			return ResponseEntity.ok(response.get());
 		}else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -65,7 +65,7 @@ public abstract class AbstractController <E extends AbstractEntity, S extends Co
 			entity.setId(id);
 			return ResponseEntity.ok(this.service.save(entity));
 		}else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -76,7 +76,7 @@ public abstract class AbstractController <E extends AbstractEntity, S extends Co
 			this.service.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.OK);
 		}else {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
