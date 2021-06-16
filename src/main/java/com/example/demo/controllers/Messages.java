@@ -8,5 +8,6 @@ public class Messages {
 
 	public static final String NO_RECORD_FOUND = "NO SE ENCONTRO EL REGISTRO";
 	public static final String DELETE_ERROR = "ERROR AL INTENTAR ELIMINAR EL REGISTRO";
+	public static final String ENTITY_NOT_SAVED = "ERROR AL INTENTAR GUARDAR EL REGISTRO";
 
 }
