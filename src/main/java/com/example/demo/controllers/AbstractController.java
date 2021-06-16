@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import com.example.demo.dto.BancosDTO;
 import com.example.demo.entity.AbstractEntity;
 import com.example.demo.services.CommonService;
 
@@ -38,7 +40,6 @@ public abstract class AbstractController <E extends AbstractEntity, S extends Co
 		return ResponseEntity.ok(this.service.findAll());
 	}
 
-	
 
 	@Override
 	public ResponseEntity<Object> findAllPaginated(int page, int records) {
@@ -55,6 +56,17 @@ public abstract class AbstractController <E extends AbstractEntity, S extends Co
 	@Override
 	public ResponseEntity<E> save(E entity) {
 		return  ResponseEntity.ok(this.service.save(entity));
+	}
+	
+	@Override
+	public ResponseEntity<E> update(Long id, E entity) {
+		Optional<E> response = this.service.findById(id);
+		if (response.isPresent()) {
+			entity.setId(id);
+			return ResponseEntity.ok(this.service.save(entity));
+		}else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	@Override
