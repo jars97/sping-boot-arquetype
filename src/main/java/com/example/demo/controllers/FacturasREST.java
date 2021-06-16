@@ -86,8 +86,11 @@ public class FacturasREST {
 		FacturasDTO dto = new FacturasDTO();
         if (response.isPresent()){
             dto=modelMapper.map(response.get(),FacturasDTO.class);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        }else {
+        	return new ResponseEntity<>(new ErrorDTO(Messages.NO_RECORD_FOUND), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        
     }
 
 	@PostMapping(value = "/", produces = "application/json",consumes = "application/json")
@@ -127,7 +130,7 @@ public class FacturasREST {
 	            	FacturasDTO dto = modelMapper.map(response,FacturasDTO.class);
 	                return new ResponseEntity<>(dto,HttpStatus.OK);
 	            }else{
-	            	return new ResponseEntity<>(new ErrorDTO(Messages.NO_RECORD_FOUND), HttpStatus.BAD_REQUEST);
+	            	return new ResponseEntity<>(new ErrorDTO(Messages.NO_RECORD_FOUND), HttpStatus.NOT_FOUND);
 	            }
 	        } catch (Exception e) {
 	            return new ResponseEntity<>(new ErrorDTO(e.getLocalizedMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
