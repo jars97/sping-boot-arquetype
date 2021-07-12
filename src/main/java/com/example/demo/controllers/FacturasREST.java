@@ -23,6 +23,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.dto.ErrorDTO;
 import com.example.demo.dto.FacturasDTO;
+import com.example.demo.dto.FacturasDTO2;
 import com.example.demo.entity.Facturas;
 import com.example.demo.entity.Renglones;
 import com.example.demo.services.FacturasService;
@@ -66,12 +67,12 @@ public class FacturasREST {
 	@GetMapping(value = "/",
             produces = "application/json")
     public ResponseEntity<Object> findAll() {
-        List<FacturasDTO> listResponse = new ArrayList<>();
+        List<FacturasDTO2> listResponse = new ArrayList<>();
         List<Facturas> mList = this.service.findAll();
         		
         if (!mList.isEmpty()) {
             for (Facturas item:mList) {
-            	FacturasDTO dto = modelMapper.map(item,FacturasDTO.class);
+            	FacturasDTO2 dto = modelMapper.map(item,FacturasDTO2.class);
                 listResponse.add(dto);
             }
         }
