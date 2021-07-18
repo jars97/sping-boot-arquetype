@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.arquetype;
 
 
 import org.springframework.context.annotation.Configuration;

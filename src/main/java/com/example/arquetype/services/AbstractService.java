@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.arquetype.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.example.demo.entity.AbstractEntity;
-import com.example.demo.entity.Bancos;
-import com.example.demo.repository.CommonRepository;
+import com.example.arquetype.entity.AbstractEntity;
+import com.example.arquetype.repository.CommonRepository;
 
 public abstract class AbstractService<E extends AbstractEntity, R extends CommonRepository<E>>implements CommonService<E> {
 	protected final R repository;

@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.example.arquetype.controllers;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,9 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.example.demo.dto.BancosDTO;
-import com.example.demo.entity.AbstractEntity;
-import com.example.demo.services.CommonService;
+import com.example.arquetype.entity.AbstractEntity;
+import com.example.arquetype.services.CommonService;
 
 public abstract class AbstractController <E extends AbstractEntity, S extends CommonService<E>> implements CommonController<E>{
 	private final S service;

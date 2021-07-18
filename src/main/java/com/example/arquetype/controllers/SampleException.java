@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.example.arquetype.controllers;
 
 import lombok.Getter;
 import lombok.Setter;

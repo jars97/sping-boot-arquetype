@@ -1,10 +1,10 @@
-package com.example.demo.controllers;
+package com.example.arquetype.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.Notas;
-import com.example.demo.services.NotasService;
+import com.example.arquetype.entity.Notas;
+import com.example.arquetype.services.NotasService;
 
 @RestController
 @RequestMapping(value = "/notas")

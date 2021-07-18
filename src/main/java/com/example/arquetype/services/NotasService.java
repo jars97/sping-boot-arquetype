@@ -1,7 +1,7 @@
-package com.example.demo.services;
+package com.example.arquetype.services;
 import org.springframework.stereotype.Service;
-import com.example.demo.entity.Notas;
-import com.example.demo.repository.NotasRepository;
+import com.example.arquetype.entity.Notas;
+import com.example.arquetype.repository.NotasRepository;
 
 @Service
 public class NotasService extends AbstractService<Notas, NotasRepository>{

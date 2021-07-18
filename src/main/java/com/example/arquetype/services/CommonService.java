@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.arquetype.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.example.demo.entity.AbstractEntity;
-import com.example.demo.entity.Bancos;
+import com.example.arquetype.entity.AbstractEntity;
 
 public interface CommonService<E extends AbstractEntity> {
 	Optional<E> findById(Long id);

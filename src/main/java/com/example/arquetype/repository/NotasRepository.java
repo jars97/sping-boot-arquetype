@@ -1,8 +1,8 @@
-package com.example.demo.repository;
+package com.example.arquetype.repository;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.Notas;
+import com.example.arquetype.entity.Notas;
 
 @Repository
 public interface NotasRepository extends CommonRepository<Notas>{

@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.example.arquetype.controllers;
 
 import java.util.List;
 
@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.demo.dto.BancosDTO;
-import com.example.demo.entity.AbstractEntity;
+import com.example.arquetype.entity.AbstractEntity;
 
 public interface CommonController<E extends AbstractEntity> {
 	
