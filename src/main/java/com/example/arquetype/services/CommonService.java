@@ -10,7 +10,7 @@ import com.example.arquetype.entity.AbstractEntity;
 
 public interface CommonService<E extends AbstractEntity> {
 	Optional<E> findById(Long id);
-	List<E> findAll();
+	List<E> findAll(String orderBy);
 	E save(E entity);
 	void deleteById(Long id);
 	Page<E> findAllPaginated(Pageable pageable);

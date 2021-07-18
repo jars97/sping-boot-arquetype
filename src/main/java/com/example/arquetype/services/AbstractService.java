@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.example.arquetype.entity.AbstractEntity;
 import com.example.arquetype.repository.CommonRepository;
@@ -24,8 +25,8 @@ public abstract class AbstractService<E extends AbstractEntity, R extends Common
 	}
 
 	@Override
-	public List<E> findAll() {
-		return this.repository.findAll();
+	public List<E> findAll(String orderBy) {
+		return this.repository.findAll(Sort.by(orderBy));
 	}
 
 	@Override

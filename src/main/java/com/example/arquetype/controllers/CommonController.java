@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.arquetype.dto.PagedDTO;
 import com.example.arquetype.entity.AbstractEntity;
 
 public interface CommonController<E extends AbstractEntity> {
@@ -18,7 +20,7 @@ public interface CommonController<E extends AbstractEntity> {
 	ResponseEntity<E> findById(@PathVariable Long id);
 	
 	@GetMapping(value = "/",produces = "application/json")
-    public ResponseEntity<List<E>> findAll();
+    public ResponseEntity<List<E>> findAll(@RequestParam(defaultValue = "id") String orderBy);
 	
 	@PostMapping(value = "/",produces = "application/json")
     public ResponseEntity<E> save(@RequestBody E entity);
@@ -29,6 +31,6 @@ public interface CommonController<E extends AbstractEntity> {
 	@DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<E> deleteById(@PathVariable("id") Long id);
 	
-	@GetMapping(value = "/page/{page}/records/{records}",produces = "application/json")
-    public ResponseEntity<Object> findAllPaginated(@PathVariable("page") int page, @PathVariable("records") int records);
+	@PostMapping(value = "/listallpaginated",produces = "application/json")
+    public ResponseEntity<Object> findAllPaginatedPost(@RequestBody PagedDTO body);
 }

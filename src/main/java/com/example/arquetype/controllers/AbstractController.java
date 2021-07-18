@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.example.arquetype.dto.PagedDTO;
 import com.example.arquetype.entity.AbstractEntity;
 import com.example.arquetype.services.CommonService;
 
@@ -35,14 +36,13 @@ public abstract class AbstractController <E extends AbstractEntity, S extends Co
 	}
 
 	@Override
-	public ResponseEntity<List<E>> findAll() {
-		return ResponseEntity.ok(this.service.findAll());
-	}
-
-
+	public ResponseEntity<List<E>> findAll(String orderBy) {
+		return ResponseEntity.ok(this.service.findAll(orderBy));
+	}	
+	
 	@Override
-	public ResponseEntity<Object> findAllPaginated(int page, int records) {
-		Pageable paging = PageRequest.of(page-1, records,Sort.by("id"));
+	public ResponseEntity<Object> findAllPaginatedPost(PagedDTO body) {
+		Pageable paging = PageRequest.of(body.getPage()-1, body.getRecords(),Sort.by(body.getOrderBy()));
         Page<E> mList = this.service.findAllPaginated(paging);
         Map<String, Object> response = new HashMap<>();
         response.put("data", mList.getContent());
@@ -61,7 +61,6 @@ public abstract class AbstractController <E extends AbstractEntity, S extends Co
 	public ResponseEntity<E> update(Long id, E entity) {
 		Optional<E> response = this.service.findById(id);
 		if (response.isPresent()) {
-			entity.setId(id);
 			return ResponseEntity.ok(this.service.save(entity));
 		}else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
