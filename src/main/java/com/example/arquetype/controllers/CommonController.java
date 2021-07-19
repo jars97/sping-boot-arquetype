@@ -20,7 +20,7 @@ public interface CommonController<E extends AbstractEntity> {
 	ResponseEntity<E> findById(@PathVariable Long id);
 	
 	@GetMapping(value = "/",produces = "application/json")
-    public ResponseEntity<List<E>> findAll(@RequestParam(defaultValue = "id") String orderBy);
+    public ResponseEntity<List<E>> findAll(@RequestParam(required = false) String orderBy);
 	
 	@PostMapping(value = "/",produces = "application/json")
     public ResponseEntity<E> save(@RequestBody E entity);

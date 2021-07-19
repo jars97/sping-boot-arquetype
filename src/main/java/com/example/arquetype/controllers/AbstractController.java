@@ -37,7 +37,11 @@ public abstract class AbstractController <E extends AbstractEntity, S extends Co
 
 	@Override
 	public ResponseEntity<List<E>> findAll(String orderBy) {
-		return ResponseEntity.ok(this.service.findAll(orderBy));
+		if (orderBy!=null) {
+			return ResponseEntity.ok(this.service.findAll(orderBy));
+		}else {
+			return ResponseEntity.ok(this.service.findAll());
+		}
 	}	
 	
 	@Override

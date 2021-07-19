@@ -28,6 +28,11 @@ public abstract class AbstractService<E extends AbstractEntity, R extends Common
 	public List<E> findAll(String orderBy) {
 		return this.repository.findAll(Sort.by(orderBy));
 	}
+	
+	@Override
+	public List<E> findAll() {
+		return this.repository.findAll();
+	}
 
 	@Override
 	public E save(E entity) {

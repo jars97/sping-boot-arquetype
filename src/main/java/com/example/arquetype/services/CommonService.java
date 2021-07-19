@@ -11,6 +11,7 @@ import com.example.arquetype.entity.AbstractEntity;
 public interface CommonService<E extends AbstractEntity> {
 	Optional<E> findById(Long id);
 	List<E> findAll(String orderBy);
+	List<E> findAll();
 	E save(E entity);
 	void deleteById(Long id);
 	Page<E> findAllPaginated(Pageable pageable);
